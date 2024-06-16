@@ -15,6 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.nio.charset.Charset;
 import java.util.List;
 
+/**
+ * WebMvcConfigurer는 Spring MVC에서 다양한 설정을 커스터마이징하기 위한 인터페이스입니다
+ * */
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -35,8 +38,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
+        //CORS 설정: 크로스 오리진 리소스 공유(CORS)를 설정할 수 있습니다.
     }
+
+
 
     /**
      * 메시지 소스를 UTF-8 인코딩으로 설정하는 예제입니다. 이를 통해 메시지 파일에서 한글과 같은
