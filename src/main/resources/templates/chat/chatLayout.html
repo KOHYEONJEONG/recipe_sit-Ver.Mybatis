@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅</title>
+    <script src="/lib/jquery/jquery-3.6.1.min.js"></script>
+    <script src="/js/chat/on_message_functions.js?v=20240531_3"></script>
+</head>
+<body>
+<h1 th:text="#{hello}">타임리프 예제 페이지</h1>
+<p th:text="'Hello, ' + ${name} + '!'"></p>
+
+
+<script th:inline="javascript">
+
+    $(function (){
+        initWebSocket();
+    });
+
+    function initWebSocket(){
+        console.log("WebSocket Connection Start.");
+        const webSocketProtocol = window.location.protocol === "http:"?"ws:":"wss:";
+        //let encodedParamData = encodeURIComponent(encodeURIComponent([[${inwrNo}]]));
+
+        webSocket = new WebSocket(`${webSocketProtocol}//${window.location.host}/ws/chat`);
+        console.log(`${webSocketProtocol}//${window.location.host}/ws/chat/`);
+        webSocket.onmessage = onMessageRealTimeAgent;
+
+        webSocket.onopen = () => {
+            console.log("websocket on OPEN!!!!")
+        }
+        webSocket.onclose=() =>{
+            console.log("WebSocket Connection Close.");
+            initWebSocket();
+        }
+    }
+
+</script>
+
+<div>
+    <label for="message">Message:</label>
+    <input type="text" id="message" />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<div id="chatLog"></div>
+
+</body>
+</html>
